@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
+// 导出配置，告诉Next.js这个页面需要客户端渲染
+export const dynamic = 'force-dynamic'
+export const runtime = 'edge'
+
 export default function ViewsDataPage() {
   const [gamesList, setGamesList] = useState<any[]>([])
   const [viewsTrend, setViewsTrend] = useState<any[]>([])
