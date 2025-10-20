@@ -65,24 +65,12 @@ async function getGameData(id: string) {
     
     // 尝试记录游戏浏览量 - 忽略错误以避免影响页面加载
     try {
-      // 记录游戏浏览量 - 使用简化的方式避免Promise链
-      const { error: viewError } = await supabase
-        .from('game_views')
-        .insert([{ 
-          game_id: id,
-          viewed_at: new Date().toISOString() 
-        }]);
+      // 直接使用RPC函数增加游戏浏览量
+      const { error: incrementError } = await supabase
+        .rpc('increment_game_view', { game_id_param: id });
       
-      if (viewError) {
-        console.error('Error recording view:', viewError);
-      } else {
-        // 成功记录浏览量后尝试增加计数
-        const { error: incrementError } = await supabase
-          .rpc('increment_game_view', { game_id: id });
-        
-        if (incrementError) {
-          console.error('Error incrementing view:', incrementError);
-        }
+      if (incrementError) {
+        console.error('Error incrementing view:', incrementError);
       }
     } catch (viewError) {
       // 提供更详细的错误信息
