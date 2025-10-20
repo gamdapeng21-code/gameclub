@@ -13,5 +13,9 @@ bucket = ".next"
 command = "npm run build"
 output_dir = ".next"
 
+# 添加环境变量定义，避免运行时赋值
+[define]
+"process.env.NODE_ENV" = "\"production\""
+
 [env.production]
 workers_dev = true
