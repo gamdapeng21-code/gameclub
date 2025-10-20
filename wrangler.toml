@@ -1,0 +1,16 @@
+name = "gameclub"
+main = "src/index.js"
+compatibility_date = "2023-10-19"
+
+# 禁用遥测数据收集
+send_metrics = false
+
+[site]
+bucket = ".next/static"
+
+[build]
+command = "npm run build"
+output_dir = ".next"
+
+[env.production]
+workers_dev = true
