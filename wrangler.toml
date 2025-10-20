@@ -1,7 +1,9 @@
-name = "gameclub"
+name = "gamdaclub"
 # 修改main入口点指向Next.js构建输出的文件
 main = ".next/standalone/server.js"
 compatibility_date = "2023-10-19"
+# 添加nodejs兼容性标志
+compatibility_flags = ["nodejs_compat"]
 
 # 禁用遥测数据收集
 send_metrics = false
@@ -11,7 +13,7 @@ bucket = ".next"
 
 [build]
 command = "npm run build"
-output_dir = ".next"
+# 移除output_dir字段，使用默认值
 
 # 添加环境变量定义，避免运行时赋值
 [define]
