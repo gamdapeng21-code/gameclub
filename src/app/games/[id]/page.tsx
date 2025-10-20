@@ -68,7 +68,10 @@ async function getGameData(id: string) {
       // 记录游戏浏览量 - 使用简化的方式避免Promise链
       const { error: viewError } = await supabase
         .from('game_views')
-        .insert([{ game_id: id }]);
+        .insert([{ 
+          game_id: id,
+          viewed_at: new Date().toISOString() 
+        }]);
       
       if (viewError) {
         console.error('Error recording view:', viewError);
@@ -82,7 +85,8 @@ async function getGameData(id: string) {
         }
       }
     } catch (viewError) {
-      console.error('Error setting up view tracking:', viewError);
+      // 提供更详细的错误信息
+      console.error('Error setting up view tracking:', viewError instanceof Error ? viewError.message : viewError);
     }
     
     return {
