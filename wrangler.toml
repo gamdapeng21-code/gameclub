@@ -1,12 +1,13 @@
 name = "gameclub"
-main = "src/index.js"
+# 修改main入口点指向Next.js构建输出的文件
+main = ".next/server.js"
 compatibility_date = "2023-10-19"
 
 # 禁用遥测数据收集
 send_metrics = false
 
 [site]
-bucket = ".next/static"
+bucket = ".next"
 
 [build]
 command = "npm run build"
