@@ -65,12 +65,14 @@ async function getGameData(id: string) {
     
     // 尝试记录游戏浏览量 - 忽略错误以避免影响页面加载
     try {
-      // 直接使用RPC函数增加游戏浏览量
-      const { error: incrementError } = await supabase
-        .rpc('increment_game_view', { game_id_param: id });
+      // 直接更新游戏浏览量
+      const { error: updateError } = await supabase
+        .from('games')
+        .update({ views: supabase.sql`views + 1` })
+        .eq('id', id);
       
-      if (incrementError) {
-        console.error('Error incrementing view:', incrementError);
+      if (updateError) {
+        console.error('Error updating game views:', updateError);
       }
     } catch (viewError) {
       // 提供更详细的错误信息
