@@ -2,8 +2,8 @@ name = "gameclub"
 # 修改main入口点指向Next.js构建输出的文件
 main = ".next/standalone/server.js"
 compatibility_date = "2024-09-23"
-# 添加nodejs兼容性标志
-compatibility_flags = ["nodejs_compat"]
+# 添加nodejs兼容性标志，明确指定环境变量处理方式
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 
 # 禁用遥测数据收集
 send_metrics = false
