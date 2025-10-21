@@ -1,4 +1,4 @@
-name = "gameclub"
+name = "gamdaclub"
 # 修改main入口点指向Next.js构建输出的文件
 main = ".next/standalone/server.js"
 compatibility_date = "2024-09-23"
