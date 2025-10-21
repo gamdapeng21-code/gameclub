@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
     optimisticClientCache: true,
+    serverComponentsExternalPackages: [],
+    serverActions: false,
   },
   // 禁用TypeScript类型检查以完成构建
   typescript: {
