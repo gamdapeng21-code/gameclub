@@ -14,9 +14,8 @@ bucket = ".next"
 [build]
 command = "npm run build"
 
-# 添加环境变量定义，避免运行时赋值
-[define]
-"process.env.NODE_ENV" = "\"production\""
+# 环境变量将通过 nodejs_compat_populate_process_env 标志处理
+# 移除 define 指令以避免与运行时赋值冲突
 
 [env.production]
 workers_dev = true
