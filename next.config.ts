@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
     optimisticClientCache: true,
     serverComponentsExternalPackages: [],
     serverActions: false,
+    appDir: false,
   },
   // 禁用TypeScript类型检查以完成构建
   typescript: {
