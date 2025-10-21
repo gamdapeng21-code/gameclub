@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "build:cf": "npx open-next build",
-    "deploy:cf": "npm run build:cf && wrangler pages deploy .open-next/standalone"
+    "deploy:cf": "npm run build:cf && wrangler pages deploy .open-next/assets"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
