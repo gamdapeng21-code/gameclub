@@ -23,7 +23,7 @@
     "next": "15.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-server-dom-webpack": "^19.1.0",
+    "react-server-dom-webpack": "19.1.0",
     "recharts": "^3.3.0",
     "supports-color": "^10.2.2"
   },
