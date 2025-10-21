@@ -7,10 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-    "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat"
+    "build:cf": "npx open-next build",
+    "deploy:cf": "npm run build:cf && wrangler pages deploy .open-next/standalone"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -28,7 +26,6 @@
     "supports-color": "^10.2.2"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -36,6 +33,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "open-next": "^2.3.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "webpack": "^5.88.2",
