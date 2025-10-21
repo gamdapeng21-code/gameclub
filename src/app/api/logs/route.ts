@@ -3,6 +3,8 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { handleApiError, safeAsync } from '@/lib/errorHandler'
 
+export const runtime = 'edge'
+
 export async function POST(request: NextRequest) {
   // 使用safeAsync包装整个函数逻辑
   const [result, error] = await safeAsync(async () => {

@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 
+export const runtime = 'edge'
+
 // 游戏卡片组件
 function GameCard({ game }: { game: any }) {
   return (

@@ -5,6 +5,8 @@ import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { Suspense } from 'react'
 
+export const runtime = 'edge'
+
 // 从数据库获取游戏数据
 async function getGameData(id: string) {
   try {
