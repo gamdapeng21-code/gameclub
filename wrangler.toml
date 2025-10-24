@@ -19,6 +19,7 @@ command = "npm run build --legacy-peer-deps"
 
 [pages]
 build_output_directory = ".open-next/assets"
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 
 [env.production]
 workers_dev = true
