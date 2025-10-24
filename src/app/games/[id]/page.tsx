@@ -10,14 +10,19 @@ import dynamic from 'next/dynamic'
 export const dynamic = 'force-static'
 
 // 使用客户端组件渲染iframe
-const GameIframe = dynamic(() => import('./GameIframe'), { 
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-    </div>
-  )
-})
+const GameIframe = dynamic(
+  () => import('./GameIframe'),
+  {
+    ssr: false,
+    loading: function Loading() {
+      return (
+        <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      );
+    }
+  }
+)
 
 // 从数据库获取游戏数据
 async function getGameData(id: string) {
