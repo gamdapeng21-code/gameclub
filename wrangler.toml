@@ -1,15 +1,10 @@
 name = "gameclub"
-# 修改main入口点指向Next.js构建输出的文件
-main = ".next/standalone/server.js"
 compatibility_date = "2024-09-23"
 # 添加nodejs兼容性标志，明确指定环境变量处理方式
 compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 
 # 禁用遥测数据收集
 send_metrics = false
-
-[site]
-bucket = ".next"
 
 [build]
 command = "npm run build --legacy-peer-deps"
@@ -18,8 +13,12 @@ command = "npm run build --legacy-peer-deps"
 # 移除 define 指令以避免与运行时赋值冲突
 
 [pages]
-build_output_directory = ".open-next/assets"
+build_output_directory = ".next/standalone"
 compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
+# 指定入口文件
+functions = [
+  { pattern = "/*", script = ".next/standalone/server.js" }
+]
 
 [env.production]
 workers_dev = true
