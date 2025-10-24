@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "build:cf": "npx open-next build --minify --legacy-peer-deps",
+    "build:static": "next build && next export",
     "deploy:cf": "npm run build:cf && wrangler pages deploy .open-next/assets"
   },
   "dependencies": {
