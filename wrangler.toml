@@ -18,7 +18,7 @@ command = "npm run build --legacy-peer-deps"
 # 移除 define 指令以避免与运行时赋值冲突
 
 [pages]
-pages_build_output_dir = ".open-next/assets"
+build_output_directory = ".open-next/assets"
 
 [env.production]
 workers_dev = true
