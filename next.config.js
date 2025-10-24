@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const path = require('path');
 
 const nextConfig = {
   images: {
@@ -24,56 +25,46 @@ const nextConfig = {
   experimental: {
     optimizeCss: false,
     swcPlugins: [],
-    serverComponentsExternalPackages: [],
-    esmExternals: 'loose',
-    // 禁用 React Server Components
-    serverActions: false,
-    serverComponents: false,
+    externalDir: true,
   },
-  // 禁用字体加载器
-  fontLoaders: [],
   // 添加模块转译配置
   transpilePackages: [
     'next', 
-    'react-server-dom-webpack', 
-    'react-server-dom-turbopack',
     'react-dom',
     'react',
     'supports-color',
-    '@vercel/turbopack-ecmascript-runtime'
+    '@vercel/turbopack-ecmascript-runtime',
+    'uglify-js',
+    '@swc/core',
+    'platform'
   ],
   // 添加 webpack 配置以解决模块解析问题
   webpack: (config, { isServer, dev }) => {
     // 添加 Node.js 兼容性插件
     if (!isServer) {
-      config.plugins.push(new NodePolyfillPlugin());
+      config.plugins.push(new NodePolyfillPlugin({
+        includeAliases: [
+          'assert', 'buffer', 'console', 'constants', 'crypto', 
+          'domain', 'events', 'http', 'https', 'os', 'path', 
+          'punycode', 'process', 'querystring', 'stream', 
+          'string_decoder', 'sys', 'timers', 'tty', 'util', 
+          'vm', 'zlib', 'fs'
+        ]
+      }));
     }
+    
+    // 解决页面引用路径问题
+    config.resolve.modules = [
+      path.resolve(__dirname),
+      'node_modules',
+      ...config.resolve.modules || []
+    ];
     
     // 解决 Node.js 模块问题
     config.resolve.fallback = {
       ...config.resolve.fallback,
-      fs: false,
-      path: false,
-      os: false,
-      crypto: false,
-      stream: false,
-      buffer: false,
-      util: false,
-      assert: false,
-      process: false,
-      zlib: false,
-      querystring: false,
-      url: false,
-      http: false,
-      https: false,
-      tty: false,
-      net: false,
-      tls: false,
-      child_process: false,
-      vm: false,
       'uglify-js': false,
       '@swc/core': false,
-      'supports-color': false,
       'platform': false,
       'react-dom/static': false,
       'react-server-dom-webpack/client': false,
@@ -89,15 +80,22 @@ const nextConfig = {
       { message: /Can't resolve/ },
       { message: /Critical dependency/ },
       { message: /Failed to parse source map/ },
+      { message: /Unexpected external import/ },
     ];
     
     // 添加别名以解决模块解析问题
     config.resolve.alias = {
       ...config.resolve.alias,
-      'react-server-dom-webpack/client': require.resolve('react-server-dom-webpack/client'),
-      'react-server-dom-turbopack/client': require.resolve('react-server-dom-webpack/client'),
-      'react-server-dom-turbopack/server': require.resolve('react-server-dom-webpack/server'),
-      'react-server-dom-turbopack/static': require.resolve('react-server-dom-webpack/static'),
+      'pages': path.resolve(__dirname, 'pages'),
+      'react-server-dom-webpack/client': path.resolve(__dirname, 'node_modules/react-server-dom-webpack/client.js'),
+      'react-server-dom-turbopack/client': path.resolve(__dirname, 'node_modules/react-server-dom-webpack/client.js'),
+      'react-server-dom-turbopack/server': path.resolve(__dirname, 'node_modules/react-server-dom-webpack/server.js'),
+      'react-server-dom-turbopack/static': path.resolve(__dirname, 'node_modules/react-server-dom-webpack/static.js'),
+      'supports-color': path.resolve(__dirname, 'node_modules/supports-color/index.js'),
+      'platform': path.resolve(__dirname, 'node_modules/platform/platform.js'),
+      '../../../../pages/_app': path.resolve(__dirname, 'pages/_app.js'),
+      '../../../../pages/_document': path.resolve(__dirname, 'pages/_document.js'),
+      '../../../../pages/_error': path.resolve(__dirname, 'pages/_error.js'),
     };
     
     return config;
