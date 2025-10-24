@@ -54,6 +54,31 @@ export default function GamesPage() {
   
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-900 to-black">
+      {/* 导航栏 */}
+      <nav className="sticky top-0 z-10 backdrop-blur-lg bg-black/50 border-b border-blue-500/20">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold text-white">
+            Game<span className="text-blue-500">Club</span>
+          </Link>
+          
+          <div className="hidden md:flex space-x-6">
+            <Link href="/" className="text-white hover:text-blue-400 transition-colors">
+              首页
+            </Link>
+            <Link href="/games" className="text-white hover:text-blue-400 transition-colors">
+              全部游戏
+            </Link>
+            <Link href="/#about" className="text-white hover:text-blue-400 transition-colors">
+              关于我们
+            </Link>
+          </div>
+          
+          <Link href="/login" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+            登录
+          </Link>
+        </div>
+      </nav>
+      
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-white mb-8">游戏列表</h1>
         
