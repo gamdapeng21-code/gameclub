@@ -16,8 +16,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // 使用标准输出模式
-  output: 'export',
+  // 使用服务端渲染模式以支持 API 路由
+  output: 'standalone',
   env: {
     NEXT_PUBLIC_SUPABASE_URL: 'https://zoammclhcyjxeaisvynu.supabase.co',
     NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpvYW1tY2xoY3lqeGVhaXN2eW51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3NjkyNjksImV4cCI6MjA3NjM0NTI2OX0.tZtS3whA9CfALOzZhT-i0OlBO7DLlf--AyBut3IDagE',
