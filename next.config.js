@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
 const nextConfig = {
   images: {
     domains: ['img.gamedistribution.com'],
@@ -24,46 +26,79 @@ const nextConfig = {
     swcPlugins: [],
     serverComponentsExternalPackages: [],
     esmExternals: 'loose',
+    // 禁用 React Server Components
+    serverActions: false,
+    serverComponents: false,
   },
   // 禁用字体加载器
   fontLoaders: [],
   // 添加模块转译配置
-  transpilePackages: ['next', 'react-server-dom-webpack', 'react-server-dom-turbopack'],
+  transpilePackages: [
+    'next', 
+    'react-server-dom-webpack', 
+    'react-server-dom-turbopack',
+    'react-dom',
+    'react',
+    'supports-color',
+    '@vercel/turbopack-ecmascript-runtime'
+  ],
   // 添加 webpack 配置以解决模块解析问题
-  webpack: (config, { isServer }) => {
-    // 解决 Node.js 模块问题
+  webpack: (config, { isServer, dev }) => {
+    // 添加 Node.js 兼容性插件
     if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        os: false,
-        crypto: false,
-        stream: false,
-        buffer: false,
-        util: false,
-        assert: false,
-        process: false,
-        zlib: false,
-        querystring: false,
-        url: false,
-        http: false,
-        https: false,
-        tty: false,
-        net: false,
-        tls: false,
-        child_process: false,
-        vm: false,
-        'uglify-js': false,
-        '@swc/core': false,
-      };
+      config.plugins.push(new NodePolyfillPlugin());
     }
+    
+    // 解决 Node.js 模块问题
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      os: false,
+      crypto: false,
+      stream: false,
+      buffer: false,
+      util: false,
+      assert: false,
+      process: false,
+      zlib: false,
+      querystring: false,
+      url: false,
+      http: false,
+      https: false,
+      tty: false,
+      net: false,
+      tls: false,
+      child_process: false,
+      vm: false,
+      'uglify-js': false,
+      '@swc/core': false,
+      'supports-color': false,
+      'platform': false,
+      'react-dom/static': false,
+      'react-server-dom-webpack/client': false,
+      'react-server-dom-turbopack/server': false,
+      'react-server-dom-turbopack/static': false,
+      'react-server-dom-turbopack/client': false,
+      '@vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts': false,
+    };
     
     // 忽略特定模块的警告
     config.ignoreWarnings = [
       { module: /node_modules/ },
       { message: /Can't resolve/ },
+      { message: /Critical dependency/ },
+      { message: /Failed to parse source map/ },
     ];
+    
+    // 添加别名以解决模块解析问题
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'react-server-dom-webpack/client': require.resolve('react-server-dom-webpack/client'),
+      'react-server-dom-turbopack/client': require.resolve('react-server-dom-webpack/client'),
+      'react-server-dom-turbopack/server': require.resolve('react-server-dom-webpack/server'),
+      'react-server-dom-turbopack/static': require.resolve('react-server-dom-webpack/static'),
+    };
     
     return config;
   },
