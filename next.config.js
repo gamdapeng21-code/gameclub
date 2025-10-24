@@ -2,7 +2,13 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const path = require('path');
 
+// 确保环境变量在构建时正确设置，避免运行时赋值警告
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
 const nextConfig = {
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+  },
   images: {
     domains: ['img.gamedistribution.com'],
     formats: ['image/avif', 'image/webp'],
