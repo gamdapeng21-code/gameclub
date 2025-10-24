@@ -25,9 +25,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // 使用静态导出模式
-  output: 'export',
-  distDir: 'out',
+  // 使用默认输出模式以支持API路由
+  // output: 'export', // 静态导出模式不支持API路由
   // 禁用 CSS 优化和字体加载以解决 lightningcss 问题
   experimental: {
     optimizeCss: false,
