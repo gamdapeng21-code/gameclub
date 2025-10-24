@@ -15,7 +15,6 @@ const Legend = dynamic(() => import('recharts').then(mod => mod.Legend), { ssr: 
 const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false })
 
 // 导出配置，告诉Next.js这个页面需要客户端渲染
-export const dynamic = 'force-static'
 export const runtime = 'edge'
 
 export default function ViewsDataPage() {
