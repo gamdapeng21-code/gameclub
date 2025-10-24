@@ -5,7 +5,8 @@ import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { Suspense } from 'react'
 
-// 移除动态导入和静态导出配置
+// 添加Edge Runtime配置
+export const runtime = 'edge';
 
 // 从数据库获取游戏数据
 async function getGameData(id: string) {
