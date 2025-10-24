@@ -1,3 +1,11 @@
+import { redirect } from 'next/navigation';
+
+export default function Home() {
+  redirect('/games');
+}
+
+// 以下是原始代码，保留以备需要
+/*
 import Link from 'next/link'
 import Image from 'next/image'
 import { cookies } from 'next/headers'
@@ -92,6 +100,7 @@ async function getGames() {
   };
 }
 
+/* 原始 HomePage 函数，已被重定向替代
 export default async function HomePage() {
   // 从数据库获取真实数据
   const { featuredGames, allGames, categories } = await getGames();
