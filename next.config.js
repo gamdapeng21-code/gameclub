@@ -26,7 +26,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   // 使用服务端渲染模式以支持 API 路由
-  output: 'standalone',
+  // output: 'standalone', // 注释掉以使用默认输出模式
   // 禁用 CSS 优化和字体加载以解决 lightningcss 问题
   experimental: {
     optimizeCss: false,
