@@ -2,10 +2,20 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import dynamic from 'next/dynamic'
+
+// 使用dynamic导入recharts组件，禁用SSR
+const LineChart = dynamic(() => import('recharts').then(mod => mod.LineChart), { ssr: false })
+const Line = dynamic(() => import('recharts').then(mod => mod.Line), { ssr: false })
+const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false })
+const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false })
+const CartesianGrid = dynamic(() => import('recharts').then(mod => mod.CartesianGrid), { ssr: false })
+const Tooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false })
+const Legend = dynamic(() => import('recharts').then(mod => mod.Legend), { ssr: false })
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false })
 
 // 导出配置，告诉Next.js这个页面需要客户端渲染
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
 export const runtime = 'edge'
 
 export default function ViewsDataPage() {
