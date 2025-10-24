@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export const runtime = 'edge'
+export const dynamic = 'force-static'
 
 // 简化的登录API，只校验admin/admin
 export async function POST(request: Request) {
