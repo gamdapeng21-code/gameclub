@@ -2,8 +2,8 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const path = require('path');
 
-// 确保环境变量在构建时正确设置，避免运行时赋值警告
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+// 确保环境变量在构建时正确设置，不要在运行时修改
+// 注意：不要在这里设置 process.env.NODE_ENV，让Next.js自己管理
 
 const nextConfig = {
   env: {
