@@ -1,20 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
+// 移除 next/font 的使用，避免 lightningcss 错误
 
 export const viewport: Viewport = {
   themeColor: "#0f172a",
@@ -73,9 +60,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://img.gamedistribution.com" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         {children}
       </body>
     </html>
