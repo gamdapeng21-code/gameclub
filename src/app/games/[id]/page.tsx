@@ -9,12 +9,14 @@ import dynamic from 'next/dynamic'
 // 使用静态导出配置
 export const dynamic = 'force-static'
 
-// 使用客户端组件渲染iframe - 修复动态导入语法
+// 使用客户端组件渲染iframe
 const GameIframe = dynamic(() => import('./GameIframe'), { 
   ssr: false,
-  loading: () => <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30">
-    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-  </div>
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  )
 })
 
 // 从数据库获取游戏数据
