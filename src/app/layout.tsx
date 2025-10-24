@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-// 移除 next/font 的使用，避免 lightningcss 错误
-
 export const viewport: Viewport = {
   themeColor: "#0f172a",
   width: "device-width",
