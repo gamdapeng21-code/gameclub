@@ -4,8 +4,13 @@ import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 
 export const runtime = 'edge'
+export const dynamic = 'force-static'
+
+// 使用客户端组件渲染iframe
+const GameIframe = dynamic(() => import('./GameIframe'), { ssr: false })
 
 // 从数据库获取游戏数据
 async function getGameData(id: string) {
@@ -215,22 +220,7 @@ export default async function GamePage({ params }: { params: { id: string } }) {
             
             {/* 游戏iframe */}
              <div className="relative aspect-video w-full overflow-hidden rounded-lg border-2 border-blue-500/30 bg-black mb-8">
-               {game.game_url ? (
-                 <iframe 
-                   src={game.game_url} 
-                   title={game.title}
-                   className="absolute inset-0 w-full h-full"
-                   allowFullScreen
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                 ></iframe>
-               ) : (
-                 <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30">
-                   <p className="text-blue-300 text-center px-4">
-                     游戏链接不可用<br />
-                     <span className="text-sm opacity-70">请检查游戏URL是否正确</span>
-                   </p>
-                 </div>
-               )}
+               <GameIframe gameUrl={game.game_url} title={game.title} />
              </div>
             
             {/* 游戏详情 */}
