@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { handleApiError, safeAsync } from '@/lib/errorHandler'
 
 export const runtime = 'edge'
-export const dynamic = 'force-static'
 
 export async function POST(request: NextRequest) {
   // 使用safeAsync包装整个函数逻辑

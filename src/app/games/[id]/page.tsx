@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/server'
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 
-export const runtime = 'edge'
 export const dynamic = 'force-static'
 
 // 使用客户端组件渲染iframe
